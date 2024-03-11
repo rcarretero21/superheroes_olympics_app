@@ -179,7 +179,6 @@ export default {
       heroSelected,
       ACTION_TYPES,
       snackbar: false,
-      token: "RCARRETERO21",
     };
   },
   mounted() {

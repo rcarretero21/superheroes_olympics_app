@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import initMongoDbConnection from "./drivers/mongodb";
 
-let PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 const readConfig = async (configFilePath: string): Promise<any> => {
   const data = await fs.readFileSync(configFilePath, "utf-8");
@@ -22,7 +22,7 @@ const startServer = async () => {
       mongoConfig.database
     );
     app.listen(config.port || PORT, () => {
-      console.log(`Server is running on port ${config.port || PORT}`);
+      console.log(`SuperHeroes server running on port ${config.port || PORT}`);
     });
   } catch (error) {
     console.log(error);
