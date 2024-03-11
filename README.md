@@ -15,4 +15,10 @@ Steps to deploy the application:
    -> \superheroes_olympics_server> npm i
    -> \superheroes_olympics_client> npm i
 
-4. Start NodeJS server and run Vue 3 frontend client:
+4. After dependency installation, start NodeJS server and run Vue 3 frontend client:
+   -> For DEV mode: \superheroes_olympics_server> npm run dev
+   For PRODUCTION mode: \superheroes_olympics_server> npm run start
+   -> For DEV mode: \superheroes_olympics_client> npm run serve
+   For PRODUCTION mode, first build (\superheroes_olympics_client> npx vue-cli-service build) and then launch server, first installing serve dep (npm install -g serve) \superheroes_olympics_client> serve -s dist -l <TARGET_PORT>
+
+Then, enjoy the SuperHeroes olympics app!!
