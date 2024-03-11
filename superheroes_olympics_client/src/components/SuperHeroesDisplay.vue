@@ -1,6 +1,13 @@
 <template>
   <v-app-bar :elevation="2" color="primary">
-    <v-app-bar-title> {{ headerMsg }}</v-app-bar-title>
+    <v-img
+      class="mx-2"
+      src="../assets/role-model.png"
+      max-height="40"
+      max-width="40"
+      contain
+    ></v-img
+    ><v-app-bar-title> {{ headerMsg }}</v-app-bar-title>
   </v-app-bar>
   <div class="superheroes-layout">
     <div class="superheroes-crud-bar">
@@ -20,6 +27,11 @@
                 <v-checkbox
                   v-model="hero.selected"
                   class="d-flex justify-center"
+                  :disabled="
+                    !hero.selected &&
+                    this.superHeroes.filter((shero) => shero.selected).length >=
+                      3
+                  "
                 ></v-checkbox>
                 <v-list-item-title class="align-center">
                   {{ hero.name }}
@@ -53,7 +65,7 @@
             this.superHeroes.filter((shero) => shero.selected).length !== 3
           "
           @click="simulateOlympics()"
-          >Start olympics!<v-icon icon="mdi-play"></v-icon
+          >Start pentathlon<v-icon icon="mdi-play"></v-icon
         ></v-btn>
       </div>
     </div>
@@ -209,7 +221,7 @@ hero-details {
   width: 14vw;
 
   .v-btn {
-    width: 9vw;
+    width: 10vw;
   }
 }
 

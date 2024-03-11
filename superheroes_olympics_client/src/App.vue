@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <SuperHeroesDisplay headerMsg="Super heroes olympics" />
+      <SuperHeroesDisplay headerMsg="Superheroes olympics" />
     </v-main>
   </v-app>
 </template>

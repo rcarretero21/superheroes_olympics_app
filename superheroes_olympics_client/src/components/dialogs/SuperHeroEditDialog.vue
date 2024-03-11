@@ -13,6 +13,7 @@
             v-model="superHeroToEdit.name"
             :rules="['Required']"
             placeholder="Name"
+            ref="name"
           ></v-text-field>
 
           <v-file-input
@@ -20,6 +21,7 @@
             :rules="['Required']"
             accept="image/png, image/jpeg, image/bmp"
             label="Avatar"
+            ref="avatar"
             placeholder="Pick an avatar"
             prepend-icon="mdi-camera"
             @change="handleFileChange"
@@ -33,6 +35,7 @@
               :max="10"
               :min="0"
               thumb-label
+              ref="agility"
             ></v-slider>
           </div>
           <div class="hero-stat-slider">
@@ -43,6 +46,7 @@
               :max="10"
               :min="0"
               thumb-label
+              ref="strength"
             ></v-slider>
           </div>
           <div class="hero-stat-slider">
@@ -53,6 +57,7 @@
               :max="10"
               :min="0"
               thumb-label
+              ref="weight"
             ></v-slider>
           </div>
           <div class="hero-stat-slider">
@@ -63,6 +68,7 @@
               :max="10"
               :min="0"
               thumb-label
+              ref="endurance"
             ></v-slider>
           </div>
           <div class="hero-stat-slider">
@@ -73,6 +79,7 @@
               :max="10"
               :min="0"
               thumb-label
+              ref="charisma"
             ></v-slider>
           </div>
         </v-card-text>
@@ -81,7 +88,7 @@
           <v-btn color="blue darken-1" text @click="cancelEdit">Cancel</v-btn>
           <v-btn
             color="blue darken-1"
-            :disable="!formIsValid"
+            :disabled="!superHeroToEdit.name.length"
             text
             @click="saveEdit(superHeroToEdit)"
             >Save</v-btn
@@ -90,6 +97,15 @@
       </v-card>
     </v-form>
   </v-dialog>
+  <v-snackbar v-model="noAvatarSnackbar" :timeout="3000" multi-line>
+    ERROR! Not avatar selected for {{ superHeroToEdit.name }}
+
+    <template v-slot:actions>
+      <v-btn color="red" variant="text" @click="noAvatarSnackbar = false">
+        Close
+      </v-btn>
+    </template>
+  </v-snackbar>
 </template>
 
 <script>
@@ -109,6 +125,8 @@ export default {
       ACTION_TYPES,
       isFormValid: false,
       chosenAvatar: {},
+      noAvatarSnackbar: false,
+      formIsValid: false,
     };
   },
   watch: {
@@ -133,11 +151,6 @@ export default {
       },
     },
   },
-  computed: {
-    formIsValid() {
-      return false;
-    },
-  },
   methods: {
     cancelEdit() {
       // Reset superHeroToEdit and close dialog
@@ -145,7 +158,11 @@ export default {
     },
     saveEdit(heroData) {
       // Emit event with updated superhero and close dialog
-      heroData.avatar = this.chosenAvatar;
+      if (this.action === ACTION_TYPES.ADD) heroData.avatar = this.chosenAvatar;
+      if (!Object.keys(heroData.avatar).length) {
+        this.noAvatarSnackbar = true;
+        return;
+      }
       this.$emit("hero-updated", heroData);
       this.dialog = false;
     },
@@ -159,6 +176,13 @@ export default {
         };
         reader.readAsDataURL(file);
       }
+    },
+    resetForm() {
+      this.formHasErrors = false;
+
+      Object.keys(this.form).forEach((f) => {
+        this.$refs[f].reset();
+      });
     },
   },
 };

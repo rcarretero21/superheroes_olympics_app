@@ -1,4 +1,7 @@
 <template>
+  <div class="text-h4 pentathlon-label" v-if="superHeroes.length === 0">
+    Select 3 Superheroes for pentathlon!
+  </div>
   <div class="superheroes-ranking" v-if="superHeroes.length !== 0">
     <h1 class="text-h4">Pentathlon ranking:</h1>
 
@@ -76,6 +79,9 @@ export default {
 .superhero-avatar {
   margin-left: 10px;
   margin-right: 10px;
+}
+.pentathlon-label {
+  padding: 10px;
 }
 .ranking-position-circle {
   display: inline-block;
