@@ -1,0 +1,9 @@
+{   
+    "host": "localhost",
+    "port": "3000",
+    "mongo": {
+        "port": 27017,
+        "host": "localhost",
+        "database": "superheroes_olympics" 
+    }
+}
